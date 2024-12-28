@@ -1,4 +1,3 @@
-# NorthMarketV1.03
 # NorthMarket - E-commerce Platform
 
 NorthMarket is a modern e-commerce platform built with Spring Boot and React, featuring a clean, dark-themed UI and comprehensive marketplace functionality.
@@ -46,70 +45,11 @@ NorthMarket is a modern e-commerce platform built with Spring Boot and React, fe
 - MariaDB 10.6+
 
 ### Backend Setup
-1. Clone the repository
-   ```bash
-   git clone https://github.com/yourusername/northmarket.git
-   cd northmarket/backend
-   ```
 
-2. Configure database
-   ```sql
-   CREATE DATABASE northmarket;
-   CREATE USER 'northmarket'@'localhost' IDENTIFIED BY 'your_password';
-   GRANT ALL PRIVILEGES ON northmarket.* TO 'northmarket'@'localhost';
-   ```
-
-3. Configure application.properties
-   ```properties
-   spring.datasource.url=jdbc:mariadb://localhost:3306/northmarket
-   spring.datasource.username=northmarket
-   spring.datasource.password=your_password
-   ```
-
-4. Run the backend
-   ```bash
-   ./mvnw spring-boot:run
-   ```
-
-### Frontend Setup
-1. Navigate to frontend directory
-   ```bash
-   cd ../frontend
-   ```
-
-2. Install dependencies
-   ```bash
-   npm install
-   ```
-
-3. Start development server
-   ```bash
-   npm run dev
-   ```
 
 ## Project Structure
 
-```
-northmarket/
-├── backend/
-│   ├── src/main/
-│   │   ├── java/com/northmarket/
-│   │   │   ├── config/
-│   │   │   ├── controller/
-│   │   │   ├── model/
-│   │   │   ├── repository/
-│   │   │   └── service/
-│   │   └── resources/
-│   └── pom.xml
-└── frontend/
-    ├── src/
-    │   ├── components/
-    │   ├── contexts/
-    │   ├── hooks/
-    │   ├── pages/
-    │   └── types/
-    └── package.json
-```
+
 
 ## API Documentation
 

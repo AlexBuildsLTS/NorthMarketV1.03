@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Store, Search } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
+import { CategoryDropdown } from '../navigation/CategoryDropdown';
 
 const Navbar = () => {
   const { user } = useAuth();
@@ -26,11 +27,9 @@ const Navbar = () => {
         </div>
 
         <div className="flex items-center space-x-6">
+          <CategoryDropdown />
           <Link to="/browse" className="hover:text-emerald-500 transition-colors">
             Browse
-          </Link>
-          <Link to="/categories" className="hover:text-emerald-500 transition-colors">
-            Categories
           </Link>
           {user ? (
             <div className="flex items-center space-x-4">

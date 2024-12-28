@@ -1,20 +1,19 @@
-import React from "react";
-import { Edit, Trash2 } from "lucide-react";
-import { Button } from "../ui/Button";
-import type { Product } from "../../types/product";
+import React from 'react';
+import { Edit, Trash2 } from 'lucide-react';
+import { Button } from '../ui/Button';
+import type { Product } from '../../types/product';
 
 const mockProducts: Product[] = [
   {
-    id: "1",
-    title: " Earbuds Pro",
+    id: '1',
+    title: 'Wireless Earbuds Pro',
     price: 129.99,
-    description: "Premium  earbuds with noise cancellation",
-    category: "Electronics",
-    imageUrl:
-      "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&q=80&w=300",
+    description: 'Premium wireless earbuds with noise cancellation',
+    category: 'Electronics',
+    imageUrl: 'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&q=80&w=300',
     rating: 4.8,
     reviews: 856,
-    seller: { id: "1", name: "TechGear" },
+    seller: { id: '1', name: 'TechGear' }
   },
   // Add more mock products...
 ];
@@ -76,9 +75,7 @@ const ProductList = () => {
                     <Button variant="secondary" className="p-2">
                       <Edit className="w-4 h-4" />
                     </Button>
-                    <Button
-                      variant="secondary"
-                      className="p-2 hover:bg-red-600">
+                    <Button variant="secondary" className="p-2 hover:bg-red-600">
                       <Trash2 className="w-4 h-4" />
                     </Button>
                   </div>

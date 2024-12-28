@@ -1,26 +1,24 @@
 import React from 'react';
-import { useAuth } from '../../contexts/AuthContext';
-import DashboardStats from '../../components/dashboard/DashboardStats';
-import MarketTrends from '../../components/home/MarketTrends';
+import DashboardLayout from '../../components/dashboard/layout/DashboardLayout';
+import TrendingProductsChart from '../../components/dashboard/charts/TrendingProductsChart';
+import MonthlyProfitChart from '../../components/dashboard/charts/MonthlyProfitChart';
+import TransactionsTable from '../../components/dashboard/TransactionsTable';
 
 const DashboardPage = () => {
-  const { user } = useAuth();
-
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="flex justify-between items-center mb-8">
+    <DashboardLayout>
+      <div className="space-y-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <TrendingProductsChart />
+          <MonthlyProfitChart />
+        </div>
+
         <div>
-          <h1 className="text-2xl font-bold text-white">Dashboard</h1>
-          <p className="text-gray-400">Welcome back, {user?.name}</p>
+          <h2 className="text-xl font-semibold text-white mb-4">Recent Transactions</h2>
+          <TransactionsTable />
         </div>
       </div>
-      
-      <DashboardStats />
-      
-      <div className="mt-8">
-        <MarketTrends />
-      </div>
-    </div>
+    </DashboardLayout>
   );
 };
 
