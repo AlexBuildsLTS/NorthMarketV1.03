@@ -1,27 +1,48 @@
-import { useState, useEffect } from 'react';
-import api from '../services/api';
-import { Listing } from '../types';
+import {useEffect, useState} from 'react';
+import type {Listing} from '../types/listing';
+import {mockListings} from '../data/mockListings';
 
-export const useListings = (sellerId?: number) => {
+interface UseListingsOptions {
+    query?: string;
+    category?: string;
+}
+
+export const useListings = ({query, category}: UseListingsOptions = {}) => {
   const [listings, setListings] = useState<Listing[]>([]);
-  const [loading, setLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchListings = async () => {
       try {
-        const url = sellerId ? `/api/listings/seller/${sellerId}` : '/api/listings';
-        const response = await api.get(url);
-        setListings(response.data);
+          setIsLoading(true);
+          // Simulate API delay
+          await new Promise(resolve => setTimeout(resolve, 500));
+
+          // Filter by category if provided
+          let filtered = category
+              ? mockListings.filter(l => l.category.toLowerCase() === category.toLowerCase())
+              : mockListings;
+
+          // Filter by search query if provided
+          if (query) {
+              const searchTerm = query.toLowerCase();
+              filtered = filtered.filter(l =>
+                  l.title.toLowerCase().includes(searchTerm) ||
+                  l.description.toLowerCase().includes(searchTerm)
+              );
+          }
+
+          setListings(filtered);
       } catch (err) {
-        setError('Failed to fetch listings');
+          setError(err instanceof Error ? err.message : 'Failed to fetch listings');
       } finally {
-        setLoading(false);
+          setIsLoading(false);
       }
     };
 
     fetchListings();
-  }, [sellerId]);
+  }, [query, category]);
 
-  return { listings, loading, error };
+    return {listings, isLoading, error};
 };
