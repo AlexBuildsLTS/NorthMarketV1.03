@@ -1,23 +1,15 @@
 package com.northmarket.entity;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-
-import org.springframework.data.annotation.CreatedDate;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -53,30 +45,12 @@ public class Advertisement {
     @Column(updatable = false)
     private LocalDateTime createdDate;
 
-    public void setCategory(Category category2) {
-        this.category = category2;
-        throw new UnsupportedOperationException("Unimplemented method 'setCategory'");
+    // Correct implementation for setUser and setCategory
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public void setUser(org.apache.catalina.User user) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void setCategory(Category category) {
+        this.category = category;
     }
-
-    public Category getCategory() {
-        if (this.category == null) {
-            throw new UnsupportedOperationException("Unimplemented method 'getCategory'");
-        }
-        return this.category;
-    }
-
 }
-//     public void setUser(User user) {
-//         this.user = user;
-//     }
-//
-//     public User getUser() {
-
-//         return this.user;
-//     }
-// }
-

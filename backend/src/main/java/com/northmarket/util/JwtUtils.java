@@ -2,12 +2,10 @@ package com.northmarket.util;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,15 +14,17 @@ import org.springframework.stereotype.Component;
 import java.security.Key;
 import java.util.Date;
 
+import static io.jsonwebtoken.Jwts.builder;
+
 @Component
 public class JwtUtils {
 
     private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
-    @Value("${app.jwt.secret}")
+    @Value("${jwt.secret}")
     private String jwtSecret;
 
-    @Value("${app.jwt.expirationMs}")
+    @Value("${jwt.expiration}")
     private long jwtExpirationMs;
 
     private Key key;
@@ -32,13 +32,13 @@ public class JwtUtils {
     @PostConstruct
     public void init() {
         if (jwtSecret == null || jwtSecret.isEmpty()) {
-            throw new IllegalStateException("JWT secret is not configured. Please set 'app.jwt.secret' property in application.properties");
+            throw new IllegalStateException("JWT secret is not configured. Please set 'jwt.secret' property in application.properties");
         }
         key = Keys.hmacShaKeyFor(jwtSecret.getBytes());
     }
 
     public String generateToken(String username) {
-        return Jwts.builder()
+        return builder()
                 .setSubject(username)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + jwtExpirationMs))
@@ -48,7 +48,7 @@ public class JwtUtils {
 
     public boolean validateToken(String token) {
         try {
-            Jwts.parserBuilder().setSigningKey(key).build().parse(token);
+            Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
             return true;
         } catch (ExpiredJwtException e) {
             logger.error("JWT Token is expired: {}", e.getMessage());
@@ -60,11 +60,11 @@ public class JwtUtils {
     }
 
     public Claims extractClaims(String token) {
-        try {
-            return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getClaims();
-        } catch (Exception ex) {
-            return null;
-        }
+        return builder()
+                .encryptWith()
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
     }
 
     public String extractTokenFromRequest(HttpServletRequest request) {

@@ -1,4 +1,3 @@
-import React from 'react';
 import {Edit, Trash2} from 'lucide-react';
 import {Button} from '../ui/Button';
 import type {Product} from '../../types/product';

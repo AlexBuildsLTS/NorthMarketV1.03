@@ -1,5 +1,12 @@
 package com.northmarket.service.impl;
 
+import com.northmarket.dto.LoginRequest;
+import com.northmarket.dto.UserDTO;
+import com.northmarket.entity.User;
+import com.northmarket.exception.UserNotAuthenticatedException;
+import com.northmarket.repository.UserRepository;
+import com.northmarket.service.UserService;
+import com.northmarket.util.JwtUtils;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,18 +19,11 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import com.northmarket.dto.LoginRequest;
-import com.northmarket.dto.UserDTO;
-import com.northmarket.entity.User;
-import com.northmarket.exception.UserNotAuthenticatedException;
-import com.northmarket.repository.UserRepository;
-import com.northmarket.service.UserService;
-import com.northmarket.util.JwtUtils;
 
 import java.util.Optional;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends UserService {
 
     private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
     private final UserRepository userRepository;

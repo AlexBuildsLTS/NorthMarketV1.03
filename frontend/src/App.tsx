@@ -13,6 +13,9 @@ import CategoryPage from './pages/category/CategoryPage';
 import {ProtectedRoute} from './components/auth/ProtectedRoute';
 import {AuthProvider} from './contexts/AuthContext';
 import {CartProvider} from './contexts/CartContext';
+import SettingsPage from "./pages/settings/SettingsPage.tsx";
+import ClientsPage from "./pages/clients/ClientsPage.tsx";
+import AdsPage from "./pages/ads/AdsPage.tsx";
 
 function App() {
   return (
@@ -28,6 +31,11 @@ function App() {
                 <Route path="/category/:category" element={<CategoryPage />} />
                 <Route path="/listing/:id" element={<ListingPage />} />
                 <Route path="/cart" element={<CartPage />} />
+                  <Route path="/dashboard/ads" element={<AdsPage/>}/>
+                  <Route path="/dashboard/clients" element={<ClientsPage/>}/>
+                  <Route path="/dashboard/settings" element={<SettingsPage/>}/>
+
+
                 <Route path="/checkout" element={
                   <ProtectedRoute>
                     <CheckoutPage />
